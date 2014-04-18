@@ -15,8 +15,7 @@ Require-Bundle: org.eclipse.ui,
  org.eclipse.debug.core,
  org.eclipse.jdt.core,
  org.eclipse.swt,
- org.eclipse.jdt.junit;bundle-version="3.3.0",
- EduRideBasePlugin;bundle-version="1.0.3"
+ org.eclipse.jdt.junit;bundle-version="3.3.0"
 Bundle-ActivationPolicy: lazy
 Bundle-RequiredExecutionEnvironment: JavaSE-1.6
 Bundle-ClassPath: .
@@ -26,3 +25,5 @@ Export-Package: edu.cmu.scs.fluorite.commands,
  edu.cmu.scs.fluorite.recorders,
  edu.cmu.scs.fluorite.util
 Eclipse-BundleShape: dir
+Import-Package: edu.berkeley.eduride.base_plugin,
+ edu.berkeley.eduride.base_plugin.util

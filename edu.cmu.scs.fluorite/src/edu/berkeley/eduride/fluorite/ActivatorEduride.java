@@ -3,6 +3,7 @@ package edu.berkeley.eduride.fluorite;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
+import org.eclipse.core.runtime.jobs.Job;
 import org.eclipse.ui.progress.UIJob;
 import org.osgi.framework.BundleContext;
 
@@ -34,7 +35,7 @@ public class ActivatorEduride extends edu.cmu.scs.fluorite.plugin.Activator {
 
 		// set preferences, etc here?
 
-		// TODO grab the old logs and push them up, in a separate thread?  
+
 		
 		super.start(context);
 		
@@ -48,10 +49,28 @@ public class ActivatorEduride extends edu.cmu.scs.fluorite.plugin.Activator {
 			}
 		});
 
+		// grab the old logs and push them up, in a separate thread?  
+		Job upload = new Job("Uploading logs") {
+			@Override
+			protected IStatus run(IProgressMonitor monitor) {
+				
+				EdurideLogUploader.uploadLogFiles();
+				
+				return Status.OK_STATUS;
+			}
 
+		};
+	}
+	
+	
+	@Override
+	public void stop(BundleContext context) throws Exception {
+		// uh oh?  This gets called in super...  ok to call twice?
+		EventRecorder.getInstance().stop();
+		EdurideLogUploader.uploadCurrentLogFile();
 		
-
-
+		super.stop(context);
+		
 	}
 
 
