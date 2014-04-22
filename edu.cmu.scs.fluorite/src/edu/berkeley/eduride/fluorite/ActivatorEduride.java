@@ -39,7 +39,7 @@ public class ActivatorEduride extends edu.cmu.scs.fluorite.plugin.Activator {
 		
 		super.start(context);
 		
-		
+		System.out.println("STARTING FLUORITE");
 		// add workspaceID to the log, when it starts
 		EventRecorder.getInstance().scheduleTask(new Runnable() {
 			@Override
@@ -60,6 +60,9 @@ public class ActivatorEduride extends edu.cmu.scs.fluorite.plugin.Activator {
 			}
 
 		};
+		upload.setSystem(true);
+		upload.setUser(false);
+		upload.schedule();
 	}
 	
 	

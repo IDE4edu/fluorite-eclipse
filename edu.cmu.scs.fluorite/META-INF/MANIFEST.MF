@@ -26,4 +26,5 @@ Export-Package: edu.cmu.scs.fluorite.commands,
  edu.cmu.scs.fluorite.util
 Eclipse-BundleShape: dir
 Import-Package: edu.berkeley.eduride.base_plugin,
- edu.berkeley.eduride.base_plugin.util
+ edu.berkeley.eduride.base_plugin.util,
+ org.json
