@@ -13,14 +13,16 @@ import org.eclipse.swt.widgets.Text;
 
 public class AddAnnotationDialog extends Dialog {
 
+	// EDURIDE CHANGES
+	
 	// log version > 0.2.0
-	public static final int CANCEL = Window.CANCEL;
 	public static final int OTHER = Window.OK;
+	public static final int CANCEL = Window.CANCEL;
 	public static final int BACKTRACKING = 2;
 	public static final int WRITING_NEW_CODE = 3;
-	public static final int TUNING_PARAMETERS = 4;
-	public static final int LEARNING_API = 5;
-	public static final int TRYING_OUT_UI_DESIGN = 6;
+	public static final int FIXING_CODE = 4;
+	public static final int WRITING_TEST_CASES = 5;
+	public static final int COMPLETELY_LOST = 6;
 	public static final int CORRECTING_LOGIC = 7;
 	public static final int TRYING_OUT_DIFFERENT_ALGORITHMS = 8;
 	public static final int DEBUGGING = 9;
@@ -30,9 +32,9 @@ public class AddAnnotationDialog extends Dialog {
 		"Cancel",
 		"Backtracking",
 		"Writing new code",
-		"Tuning parameters",
-		"Learning API",
-		"Trying out UI design",
+		"Fixing existing code",
+		"Writing test cases",
+		"I'm completely lost",
 		"Correcting Logic",
 		"Trying out different algorithms",
 		"Debugging",
@@ -50,16 +52,15 @@ public class AddAnnotationDialog extends Dialog {
 	@Override
 	protected void createButtonsForButtonBar(Composite parent) {
 		// createButton(parent, BACKTRACKING, "Backtracking", true);
-		// createButton(parent, WRITING_NEW_CODE, "Writing new code", false);
-		createButton(parent, TUNING_PARAMETERS, "Tuning parameters", false);
-		createButton(parent, LEARNING_API, "Learning an API", false);
-		createButton(parent, TRYING_OUT_UI_DESIGN, "Trying another UI design",
-				false);
-		createButton(parent, CORRECTING_LOGIC, "Correcting logic", false);
-		createButton(parent, TRYING_OUT_DIFFERENT_ALGORITHMS,
-				"Trying another algorithm", false);
+		createButton(parent, WRITING_NEW_CODE, "Writing new code", false);
+		createButton(parent, FIXING_CODE, "Fixing existing code", false);
+		createButton(parent, WRITING_TEST_CASES, "Writing test cases", false);
 		createButton(parent, DEBUGGING, "Debugging", false);
-		createButton(parent, OTHER, "Other", true);
+		createButton(parent, COMPLETELY_LOST, "I'm completely lost", false);
+		//createButton(parent, CORRECTING_LOGIC, "Correcting logic", false);
+		//createButton(parent, TRYING_OUT_DIFFERENT_ALGORITHMS, "Trying another algorithm", false);
+
+		createButton(parent, OTHER, "Other (comment)", true);
 		createButton(parent, CANCEL, "Cancel", false);
 		
 		// Modify the parent's layout
@@ -77,13 +78,11 @@ public class AddAnnotationDialog extends Dialog {
 
 		Label label = new Label(comp, SWT.NONE);
 		StringBuffer msg = new StringBuffer();
-		msg.append("Please describe the intention of your recent backtracking.");
-		msg.append("\n\nIf one of the buttons below describes your situation, you can simply click the button.");
-		msg.append("\nOtherwise, please write a brief description in the textbox and click \"Other\".");
+		msg.append("\nPlease describe what you are doing or thinking.\n\n");
 		label.setText(msg.toString());
 
-		this.textComment = new Text(comp, SWT.BORDER);
-		this.textComment.setSize(200, -1);
+		this.textComment = new Text(comp, SWT.MULTI | SWT.BORDER);
+		this.textComment.setSize(200, 100);
 		this.textComment.setLayoutData(new GridData(SWT.FILL, SWT.FILL, true,
 				false));
 

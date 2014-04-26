@@ -73,9 +73,27 @@
             <command
                   commandId="edu.cmu.scs.fluorite.annotateCommand"
                   style="push"
-                  tooltip="Add an annotation to describe the current backtracking intention">
+                  tooltip="EduRide: Describe what you are doing">
             </command>
          </toolbar>
+      </menuContribution>
+      <menuContribution
+            allPopups="false"
+            locationURI="menu:window?after=closeAllPerspectives">
+         <menu
+               id="edu.berkeley.edu.eduride.eduridemenu"
+               label="EduRide commands">
+            <command
+                  commandId="edu.cmu.scs.fluorite.actions.viewLastLog"
+                  label="View current log"
+                  style="push">
+            </command>
+            <command
+                  commandId="edu.cmu.scs.fluorite.annotateCommand"
+                  label="Describe what you are doing"
+                  style="push">
+            </command>
+         </menu>
       </menuContribution>
    </extension>
    <extension
