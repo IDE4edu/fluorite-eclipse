@@ -1,5 +1,15 @@
 package edu.berkeley.eduride.fluorite;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+
+import org.eclipse.core.resources.IProject;
+import org.eclipse.core.resources.IResource;
+import org.eclipse.core.resources.ResourcesPlugin;
+import org.eclipse.core.runtime.IPath;
 import org.eclipse.core.runtime.IProgressMonitor;
 import org.eclipse.core.runtime.IStatus;
 import org.eclipse.core.runtime.Status;
@@ -54,7 +64,7 @@ public class ActivatorEduride extends edu.cmu.scs.fluorite.plugin.Activator {
 			@Override
 			protected IStatus run(IProgressMonitor monitor) {
 				
-				EdurideLogUploader.uploadLogFiles();
+				EdurideLogUploader.uploadLogFiles();	
 				
 				return Status.OK_STATUS;
 			}
@@ -63,7 +73,11 @@ public class ActivatorEduride extends edu.cmu.scs.fluorite.plugin.Activator {
 		upload.setSystem(true);
 		upload.setUser(false);
 		upload.schedule();
+		
 	}
+	
+	
+	
 	
 	
 	@Override
@@ -72,11 +86,33 @@ public class ActivatorEduride extends edu.cmu.scs.fluorite.plugin.Activator {
 		EventRecorder.getInstance().stop();
 		EdurideLogUploader.uploadCurrentLogFile();
 		
+		for (File f : getFilesToUpload()) {
+			EdurideLogUploader.uploadLogFile(f);
+		}
+		
 		super.stop(context);
 		
 	}
 
+	
+	
+	private ArrayList<File> getFilesToUpload() {
+		ArrayList<File> files = new ArrayList<File>();
+		
+		// TODO remove this abomination when .isa files can handle this
+		// CSE21 LAB 13 SURVEY, yoyo
+		IProject lab13 = ResourcesPlugin.getWorkspace().getRoot().getProject("Lab 21_13");
+		IResource survey = lab13.findMember("doc/survey.txt");
+		if (survey.exists() && (survey.getType() == IResource.FILE)) {
+			files.add(survey.getLocation().toFile());
+		}
+		
+		
+		return files;
+	}
 
+
+	
 
 	
 	// TODO -- upload logs?
